@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +20,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	// constants
@@ -57,21 +57,73 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public void checkRecognition() {
+		Log.v(TAG, "Checking for RecognizerIntent from package manager.");
+		
 		PackageManager pm = getPackageManager();
 		List<ResolveInfo> activities = pm.queryIntentActivities(new Intent(
 				RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+		
 		if (activities.size() != 0) {
+			// recognizer is available.			
 			for (View b : buttons)
 				b.setOnClickListener(this);
+			
 		} else {
-			for (View b : buttons) {
+			// recognizer intent not found show error promopt.
+			Log.w(TAG, "Recognizer Intent not found!");
+			for (View b : buttons)
 				b.setEnabled(false);
-			}
+			
+			showVoiceSearchDownloadRequest();
 		}
+	}
+
+	private void showVoiceSearchDownloadRequest() {
+		// request user to download Voice Search app.
+		
+		AlertDialog dialog;
+		final Activity thisActivity = this; 
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+		builder	.setMessage(getString(R.string.err_voice_search))
+				.setCancelable(false)
+				.setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// launch market
+						try {
+							// start market intent
+							Intent goToMarket = new Intent(Intent.ACTION_VIEW,Uri.parse(getString(R.string.market_voicesearch_url)));
+							startActivity(goToMarket);
+						} catch (Throwable e) {
+							// market not detected on the phone.
+							new AlertDialog.Builder(thisActivity)
+							.setMessage(R.string.err_no_market)
+							.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener(){
+								public void onClick(DialogInterface dialog, int which) {
+									// do nothing.
+								}
+							}).create().show();
+						}
+					}
+				})
+				.setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// dismiss this window.
+						if (dialog != null) dialog.dismiss();
+					}
+				});
+
+		dialog = builder.create();
+		dialog.show();
+		Log.d(TAG, "Showing voice search download request dialog.");
 	}
 
 	@Override
 	public void onClick(View v) {
+		// handle two buttons 
+		
 		if (v.getId() == R.id.entr_btn) {
 			mode = EN_TR_MODE;
 			startVoiceRecognitionActivity();

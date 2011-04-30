@@ -13,7 +13,6 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class ResultsActivity extends Activity{
-	private static final String SEARCH_URL = "http://m.tureng.com/search/%s";
 	//private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.25 (KHTML, like Gecko) Chrome/12.0.706.0 Safari/534.25"; // if spoofing needed.
 	
 	private static final String TAG = "HizliSozluk";
@@ -43,7 +42,7 @@ public class ResultsActivity extends Activity{
 				showErrorToast(getString(R.string.err_recv_word));
 				finish();
 			} else {
-				String url = String.format(SEARCH_URL, word);
+				String url = String.format(getString(R.string.search_url), word);
 				Log.i(TAG, String.format("Loading: %s", url));
 				
 				setTitle(String.format(getString(R.string.loading_title), word));

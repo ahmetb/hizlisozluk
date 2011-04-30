@@ -10,6 +10,13 @@
     <string name="loading_title">Loading: %s...</string>
     <string name="results_title">Results for: %s</string>
     
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_ok">OK</string>
+    
+    <string name="search_url">http://m.tureng.com/search/%s</string>
+    <string name="market_voicesearch_url">market://details?id=com.google.android.voicesearch</string>
+    
     <string name="about_title">About application</string>
     <string name="about_manifest">Dictionary lookup has never been that easy!</string>
     <string name="about_copy">© 2011, Avior</string>
@@ -19,4 +26,7 @@
     <string name="err_xtras_bundle">Could not extras bundle.</string>
     <string name="err_webclient">Web client error: %s</string>
     <string name="err_recv_word">Could not receive word.</string>
+    <string name="err_no_market">Market not found on the phone. (Telefonda Android Market bulunamadı.)</string>
+    <string name="err_voice_search">Voice Search application is not installed. Click Yes to download from market.
+    (Voice Search uygulaması bulunamadı, marketten indirmek için Yes\'e basınız.)</string>
 </resources>
