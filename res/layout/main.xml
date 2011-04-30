@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/main">
+	<Button android:text="@string/entr" android:id="@+id/entr_btn"
+		android:gravity="center" android:layout_width="fill_parent"
+		android:layout_weight="1.0"
+		android:textSize="35sp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10sp"
+		android:layout_marginTop="10sp"
+		>
+		</Button>
+		
+	<Button android:text="@string/tren" android:id="@+id/tren_btn"
+		android:gravity="center" android:layout_width="fill_parent"
+		android:layout_weight="1.0"
+		android:textSize="35sp"
+		android:layout_height="wrap_content"
+		></Button>
+</LinearLayout>

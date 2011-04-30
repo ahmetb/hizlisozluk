@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+    <TextView android:id="@+id/about_manifest"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:textSize="13sp"
+	android:gravity="center"
+	android:textColor="#FFEA00"
+	android:text="@string/about_manifest"
+	></TextView>
+	
+    <TextView android:id="@+id/about_copyright"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:textSize="25sp"
+	android:textColor="#FFF"
+	android:gravity="center"
+	android:text="@string/about_copy"
+	></TextView>
+	
+	<TextView android:id="@+id/about_reference"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:text="@string/about_ref"
+	android:textSize="13sp"
+	android:gravity="center"
+	android:layout_marginBottom="20sp"
+	></TextView>
+	
+</LinearLayout>

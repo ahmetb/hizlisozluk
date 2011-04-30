@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Hızlı Sözlük</string>
+	<string name="results">Results</string>
+	<string name="prompt">Speak a word or phrase in</string>
+	<string name="pick">Pick a result</string>
+    <string name="hello">Hello World, Main!</string>
+    <string name="tren">Turkish→English</string>
+    <string name="entr">English→Turkish</string>
+    <string name="loading_title">Loading: %s...</string>
+    <string name="results_title">Results for: %s</string>
+    
+    <string name="about_title">About application</string>
+    <string name="about_manifest">Dictionary lookup has never been that easy!</string>
+    <string name="about_copy">© 2011, Avior</string>
+    <string name="about_ref">Dictionary belongs to Tureng Çeviri Ltd. (visit tureng.com for more)</string>
+    <string name="about_url">https://market.android.com/search?q=avior</string>
+    
+    <string name="err_xtras_bundle">Could not extras bundle.</string>
+    <string name="err_webclient">Web client error: %s</string>
+    <string name="err_recv_word">Could not receive word.</string>
+</resources>
