@@ -27,6 +27,6 @@
     <string name="err_webclient">Web client error: %s</string>
     <string name="err_recv_word">Could not receive word.</string>
     <string name="err_no_market">Market not found on the phone. (Telefonda Android Market bulunamadı.)</string>
-    <string name="err_voice_search">Voice Search application is not installed. Click Yes to download from market.
-    (Voice Search uygulaması bulunamadı, marketten indirmek için Yes\'e basınız.)</string>
+    <string name="err_voice_search">Google Voice Search application is not installed. Click Yes to download from market.
+    (Google Voice Search uygulaması bulunamadı, marketten indirmek için Yes\'e basınız.)</string>
 </resources>
