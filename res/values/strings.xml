@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Hızlı Sözlük</string>
+	<string name="app_label">Hızlı Sözlük\'te ara</string>
+	<string name="search_hint">Type something...</string>
 	<string name="results">Results</string>
 	<string name="prompt">Speak a word or phrase in</string>
 	<string name="pick">Pick a result</string>

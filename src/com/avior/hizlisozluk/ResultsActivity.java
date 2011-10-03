@@ -1,6 +1,8 @@
 package com.avior.hizlisozluk;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,71 +34,78 @@ public class ResultsActivity extends Activity{
 
 		final Activity act = this; // to be accessed inside onProgressChanged
 		
-		Bundle extras = getIntent().getExtras();
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		String word = null; // fill this with search or incoming voice query
 		
-		if(extras != null){
-			final String word = extras.getString(WORD_PROPNAME);
-			
-			if (word == null || "".equals(word) || word.length() < 1){
-				Log.e(TAG, "Could not find extract 'word' in ResultsActivity extras bundle.");
-				showErrorToast(getString(R.string.err_recv_word));
-				finish();
-			} else {
-				String url = String.format(getString(R.string.search_url), word);
-				Log.i(TAG, String.format("Loading: %s", url));
-				
-				setTitle(String.format(getString(R.string.loading_title), word));
-				
-				web = new WebView(this);
-				//web.getSettings().setUserAgentString(USER_AGENT);
-				web.getSettings().setJavaScriptEnabled(true);
-				
-				// enable progress bar
-				web.setWebChromeClient(new WebChromeClient() {
-					public void onProgressChanged(WebView view, int progress) {
-						act.setProgress(progress * 100);
-						
-						if(progress == 100) // finished loading
-							setTitle(String.format(getString(R.string.results_title), word));
-					}
-				});
-				
-				// detect errors
-				web.setWebViewClient(new WebViewClient(){
-					@Override
-					public void onReceivedError(WebView view, int errorCode,
-							String description, String failingUrl) {
-						showErrorToast(description);
-						Log.e(TAG, String.format(getString(R.string.err_webclient), description));
-					}
-				});
-				
-				// key listeners
-				web.setOnKeyListener(new OnKeyListener() {
-					@Override
-					public boolean onKey(View v, int keyCode, KeyEvent event) {
-						// provide back functionality
-						if (keyCode == KeyEvent.KEYCODE_BACK && web.canGoBack()){
-							web.goBack();
-							return true;
-						}
-						
-						// enable search key.
-						if (keyCode == KeyEvent.KEYCODE_SEARCH){
-							//Intent i = new Intent(getApplicationContext(), MainActivity.class);
-							finish();
-						}
-						return false;
-					}
-				});
-				
-				web.loadUrl(url);
-				setContentView(web);
-			}
-		} else {
+		String searchQuery = intent.getStringExtra(SearchManager.QUERY);
+
+		if (searchQuery != null && searchQuery.length() > 0)
+			word = searchQuery;
+		else if (extras != null){
+			word = extras.getString(WORD_PROPNAME);
+		} else { // could not find extras of intent
 			Log.e(TAG, getString(R.string.err_xtras_bundle));
 			showErrorToast(getString(R.string.err_xtras_bundle));
 			finish();
+		}
+			
+		if (word == null || word.length() < 1){
+			Log.e(TAG, "Could not find extract 'word' in ResultsActivity extras bundle.");
+			showErrorToast(getString(R.string.err_recv_word));
+			finish();
+		} else {
+			String url = String.format(getString(R.string.search_url), word);
+			Log.i(TAG, String.format("Loading: %s", url));
+			
+			setTitle(String.format(getString(R.string.loading_title), word));
+			
+			web = new WebView(this);
+			//web.getSettings().setUserAgentString(USER_AGENT);
+			web.getSettings().setJavaScriptEnabled(true);
+			
+			// enable progress bar
+			web.setWebChromeClient(new WebChromeClient() {
+				public void onProgressChanged(WebView view, int progress) {
+					act.setProgress(progress * 100);
+					
+					if(progress == 100){ // finished loading
+						setTitle(getString(R.string.results));
+					}
+				}
+			});
+			
+			// detect errors
+			web.setWebViewClient(new WebViewClient(){
+				@Override
+				public void onReceivedError(WebView view, int errorCode,
+						String description, String failingUrl) {
+					showErrorToast(description);
+					Log.e(TAG, String.format(getString(R.string.err_webclient), description));
+				}
+			});
+			
+			// key listeners
+			web.setOnKeyListener(new OnKeyListener() {
+				@Override
+				public boolean onKey(View v, int keyCode, KeyEvent event) {
+					// provide back functionality
+					if (keyCode == KeyEvent.KEYCODE_BACK && web.canGoBack()){
+						web.goBack();
+						return true;
+					}
+					
+					// enable search key.
+					if (keyCode == KeyEvent.KEYCODE_SEARCH){
+						//Intent i = new Intent(getApplicationContext(), MainActivity.class);
+						finish();
+					}
+					return false;
+				}
+			});
+			
+			web.loadUrl(url);
+			setContentView(web);
 		}
 	}
 }
